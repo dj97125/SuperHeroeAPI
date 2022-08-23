@@ -1,135 +1,65 @@
 package com.example.nyc_schools_test.model.remote
 
-import android.util.Log
 import com.example.nyc_schools_test.common.FailedResponseException
 import com.example.nyc_schools_test.common.NullResponseException
 import com.example.nyc_schools_test.common.StateAction
-import com.example.nyc_schools_test.domain.responses.TopRatedDomain
-import com.example.nyc_schools_test.domain.responses.UpcomingDomain
-import com.example.rappitest.model.remote.upcoming_response.RecomendationDomain
-import com.example.rappitest.model.remote.upcoming_response.RecomendationResultResponse
-import com.example.rappitest.model.remote.upcoming_response.ResultResponse
-import com.example.rappitest.model.remote.upcoming_response.TopRatedResultResponse
+import com.example.nyc_schools_test.model.remote.response.HeroeResponse
+import com.example.nyc_schools_test.model.remote.response.ImageResponse
+import com.example.nyc_schools_test.model.remote.response.PowerstatsResponse
+import com.example.nyc_schools_test.model.remote.responses.HeroeDomain
+import com.example.nyc_schools_test.model.remote.responses.ImageDomain
+import com.example.nyc_schools_test.model.remote.responses.PowerstatsDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
 interface RemoteDataSource {
-    fun UpcomingCatched(): Flow<StateAction>
-    fun TopRatedCatched(): Flow<StateAction>
-    fun RecomendationCatched(): Flow<StateAction>
+    fun heroeCatched(): Flow<StateAction>
 }
 
 class RemoteDataSourceImpl @Inject constructor(
     private val service: RemoteApi
 ) : RemoteDataSource {
 
-    override fun RecomendationCatched(): Flow<StateAction> = flow {
-        val respose = service.getRecomendationList()
-        if (respose.isSuccessful) {
-            respose.body()?.let { result ->
-                emit(StateAction.SUCCESS(result.results.toDomainRecomendationModel()))
-                Log.d("remote", "RecomendationCatched: $result")
-            } ?: throw NullResponseException()
-        } else {
-            throw FailedResponseException()
+    override fun heroeCatched(): Flow<StateAction> = flow {
+        var heroes: MutableList<HeroeResponse> = mutableListOf()
+        for (i in 1..700) {
+            val respose = service.getHeroeList(i.toString())
+            if (respose.isSuccessful) {
+                respose.body()?.let { response ->
+                    heroes.add(response)
+                }?: throw NullResponseException()
+            } else {
+                throw FailedResponseException()
+            }
         }
-
+        emit(StateAction.SUCCESS(heroes.toDomainHeroeModel()))
     }
-
-    override fun UpcomingCatched(): Flow<StateAction> = flow {
-        val respose = service.getUpcomingList()
-        if (respose.isSuccessful) {
-            respose.body()?.let { result ->
-                emit(StateAction.SUCCESS(result.results.toDomainUpcomingModel()))
-                Log.d("remote", "UpcomingCatched: $result")
-            } ?: throw NullResponseException()
-        } else {
-            throw FailedResponseException()
-        }
-
-    }
-
-    override fun TopRatedCatched(): Flow<StateAction> = flow {
-        val respose = service.getTopRatedList()
-        if (respose.isSuccessful) {
-            respose.body()?.let { result ->
-                emit(StateAction.SUCCESS(result.results.toDomainTopRatedModel()))
-                Log.d("remote", "TopRatedCatched: $result")
-            } ?: throw NullResponseException()
-        } else {
-            throw FailedResponseException()
-        }
-
-    }
-
 
 }
 
-private fun List<ResultResponse>.toDomainUpcomingModel(): List<UpcomingDomain> = map {
-    it.toDomainUpcomingModel()
+
+private fun List<HeroeResponse>.toDomainHeroeModel(): List<HeroeDomain> = map {
+    it.toDomainHeroeModel()
 }
 
-private fun List<TopRatedResultResponse>.toDomainTopRatedModel(): List<TopRatedDomain> = map {
-    it.toDomainTopRatedModel()
-}
 
-private fun List<RecomendationResultResponse>.toDomainRecomendationModel(): List<RecomendationDomain> =
-    map {
-        it.toDomainRecomendationModel()
-    }
+private fun ImageResponse.toDomainImageModel(): ImageDomain =
+    ImageDomain(url)
 
-private fun RecomendationResultResponse.toDomainRecomendationModel(): RecomendationDomain =
-    RecomendationDomain(
-        adult,
-        backdropPath,
+private fun PowerstatsResponse.toDomainPowerStatsModel(): PowerstatsDomain =
+    PowerstatsDomain(combat, durability, intelligence, power, speed, strength)
+
+
+private fun HeroeResponse.toDomainHeroeModel(): HeroeDomain =
+    HeroeDomain(
         id,
-        originalLanguage,
-        originalTitle,
-        overview,
-        popularity,
-        posterPath,
-        releaseDate,
-        title,
-        video,
-        voteAverage,
-        voteCount
+        imageResponse = imageResponse.toDomainImageModel(),
+        name,
+        powerstatsResponse = powerstatsResponse.toDomainPowerStatsModel(),
+        response,
     )
 
-private fun TopRatedResultResponse.toDomainTopRatedModel(): TopRatedDomain =
-    TopRatedDomain(
-        adult,
-        backdropPath,
-        id,
-        originalLanguage,
-        originalTitle,
-        overview,
-        popularity,
-        posterPath,
-        releaseDate,
-        title,
-        video,
-        voteAverage,
-        voteCount
-    )
-
-
-private fun ResultResponse.toDomainUpcomingModel(): UpcomingDomain =
-    UpcomingDomain(
-        adult,
-        backdropPath,
-        id,
-        originalLanguage,
-        originalTitle,
-        overview,
-        popularity,
-        posterPath,
-        releaseDate,
-        title,
-        video,
-        voteAverage,
-        voteCount
-    )
 
 

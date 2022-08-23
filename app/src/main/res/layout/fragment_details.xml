@@ -23,8 +23,8 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:padding="10dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +46,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.93">
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_details"
                 android:layout_width="match_parent"
@@ -61,162 +62,260 @@
                     android:textColor="@color/teal_200"
                     android:textSize="40dp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/rate_CV"
+                    app:layout_constraintBottom_toTopOf="@id/text_power"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.62"
-                    tools:text="Her"
+                    app:layout_constraintVertical_bias="0.51"
+                    tools:text="Abe Sapien"
                     tools:textColor="@color/white" />
 
                 <TextView
-                    android:id="@+id/details_title"
+                    android:id="@+id/text_power"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:gravity="start"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/teal_200"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Power Biography"
+                    android:textColor="@color/white"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/details_over_view"
+                    app:layout_constraintBottom_toTopOf="@id/heroe_stats_CV"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rate_CV"
-                    tools:text="Movie Pilot"
-                    tools:textColor="@color/white" />
+                    app:layout_constraintTop_toBottomOf="@id/details_original_title" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/relase_date_CV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="@color/teal_200"
+                    android:id="@+id/heroe_stats_CV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:elevation="2dp"
-                    android:padding="5dp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="8dp"
-                    app:cardElevation="1dp"
-                    app:layout_constraintEnd_toStartOf="@+id/languaje_CV"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/details_title"
-                    app:layout_constraintTop_toBottomOf="@+id/details_original_title"
-                    app:layout_constraintVertical_bias="0.22000003">
-
-                    <TextView
-                        android:id="@+id/relase_date_TXT"
-                        android:layout_width="80dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
-                        tools:text="2022" />
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/languaje_CV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="@color/teal_200"
-                    android:elevation="2dp"
-                    android:padding="5dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/details_title"
-                    app:layout_constraintEnd_toStartOf="@id/rate_CV"
-                    app:layout_constraintVertical_bias="0.22000003"
-                    app:layout_constraintStart_toEndOf="@+id/relase_date_CV"
-                    app:layout_constraintTop_toBottomOf="@+id/details_original_title">
-
-                    <TextView
-                        android:id="@+id/languaje_TXT"
-                        android:layout_width="80dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
-                        tools:text="en" />
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/rate_CV"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="15dp"
-                    android:elevation="2dp"
-                    android:padding="5dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/details_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/languaje_CV"
-                    app:layout_constraintTop_toBottomOf="@+id/details_original_title"
-                    app:layout_constraintVertical_bias="0.22000003">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_power"
+                    app:layout_constraintVertical_bias="1.0">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_stats"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/yellow">
+                        android:layout_height="match_parent">
+
 
                         <TextView
-                            android:id="@+id/rate_TXT"
+                            android:id="@+id/text_strength"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="15dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/rate_IMG"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:text="4.7" />
+                            android:text="Strength"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toTopOf="@+id/text_intelligence"
+                            app:layout_constraintEnd_toEndOf="@+id/text_intelligence"
+                            app:layout_constraintStart_toStartOf="@+id/text_intelligence"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
-                            android:id="@+id/rate_IMG"
-                            android:layout_width="30dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="15dp"
+                        <TextView
+                            android:id="@+id/text_intelligence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:gravity="center"
-                            android:src="@drawable/ic_launcher_star_foreground"
-                            android:textColor="@color/black"
-                            android:textSize="15dp"
-                            android:textStyle="bold"
+                            android:text="Intelligence"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toTopOf="@id/text_speed"
+                            app:layout_constraintEnd_toEndOf="@+id/text_speed"
+                            app:layout_constraintStart_toStartOf="@+id/text_speed"
+                            app:layout_constraintTop_toBottomOf="@id/text_strength" />
+
+                        <TextView
+                            android:id="@+id/text_speed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Spped"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toTopOf="@id/text_durability"
+                            app:layout_constraintEnd_toEndOf="@+id/text_durability"
+                            app:layout_constraintStart_toStartOf="@+id/text_durability"
+                            app:layout_constraintTop_toBottomOf="@id/text_intelligence" />
+
+                        <TextView
+                            android:id="@+id/text_durability"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Durability"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toTopOf="@id/text_power_value"
+                            app:layout_constraintEnd_toEndOf="@+id/text_power_value"
+                            app:layout_constraintStart_toStartOf="@+id/text_power_value"
+                            app:layout_constraintTop_toBottomOf="@id/text_speed" />
+
+                        <TextView
+                            android:id="@+id/text_power_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Power"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toTopOf="@id/text_combat"
+                            app:layout_constraintEnd_toEndOf="@+id/text_combat"
+                            app:layout_constraintStart_toStartOf="@+id/text_combat"
+                            app:layout_constraintTop_toBottomOf="@id/text_durability" />
+
+                        <TextView
+                            android:id="@+id/text_combat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="Combat"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/rate_TXT"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintHorizontal_bias="0.25"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_power_value" />
+
+                        <TextView
+                            android:id="@+id/strenght_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_strength"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/text_strength"
+                            app:layout_constraintTop_toTopOf="@+id/text_strength"
+                            tools:text="90" />
+
+
+                        <TextView
+                            android:id="@+id/intelligence_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_intelligence"
+                            app:layout_constraintEnd_toEndOf="@+id/strenght_value"
+                            app:layout_constraintStart_toStartOf="@+id/strenght_value"
+                            app:layout_constraintTop_toTopOf="@+id/text_intelligence"
+                            tools:text="90" />
+
+                        <TextView
+                            android:id="@+id/speed_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_speed"
+                            app:layout_constraintEnd_toEndOf="@+id/intelligence_value"
+                            app:layout_constraintStart_toStartOf="@+id/intelligence_value"
+                            app:layout_constraintTop_toTopOf="@+id/text_speed"
+                            tools:text="90" />
+
+                        <TextView
+                            android:id="@+id/durability_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_durability"
+                            app:layout_constraintEnd_toEndOf="@+id/speed_value"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/speed_value"
+                            app:layout_constraintTop_toTopOf="@+id/text_durability"
+                            app:layout_constraintVertical_bias="1.0"
+                            tools:text="90" />
+
+                        <TextView
+                            android:id="@+id/power_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_power_value"
+                            app:layout_constraintEnd_toEndOf="@+id/durability_value"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/durability_value"
+                            app:layout_constraintTop_toTopOf="@+id/text_power_value"
+                            app:layout_constraintVertical_bias="1.0"
+                            tools:text="90" />
+
+                        <TextView
+                            android:id="@+id/combat_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="normal"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_combat"
+                            app:layout_constraintEnd_toEndOf="@+id/power_value"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/power_value"
+                            app:layout_constraintTop_toTopOf="@+id/text_combat"
+                            app:layout_constraintVertical_bias="1.0"
+                            tools:text="90" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/details_over_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:textColor="@color/teal_200"
-                    android:textSize="20dp"
-                    android:textStyle="normal"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_title"
-                    tools:text="Overview"
-                    tools:textColor="@color/white" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         </androidx.cardview.widget.CardView>
+
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

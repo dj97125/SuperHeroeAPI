@@ -1,6 +1,7 @@
 package com.example.nyc_schools_test.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -15,10 +16,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Toast.makeText(applicationContext, "Loading your Heroes..", Toast.LENGTH_LONG) .show()
         installSplashScreen().apply {
             setKeepOnScreenCondition() {
+
                 viewModel.isLoading.value
+
             }
         }
         bindingMain = ActivityMainBinding.inflate(layoutInflater)
@@ -26,8 +29,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
 }
+
+
 
 
 
