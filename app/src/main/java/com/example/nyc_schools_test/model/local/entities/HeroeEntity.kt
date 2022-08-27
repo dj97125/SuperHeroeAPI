@@ -1,5 +1,6 @@
 package com.example.nyc_schools_test.model.local.entities
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -7,15 +8,16 @@ import androidx.room.PrimaryKey
 data class HeroesEntity(
     @PrimaryKey(autoGenerate = false)
     val id: String,
+    @Embedded
     val imageResponse: ImageEntity?,
     val name: String?,
+    @Embedded
     val powerstatsResponse: PowerstatsEntity?,
     val response: String,
 )
 
-@Entity
+
 data class PowerstatsEntity(
-    @PrimaryKey(autoGenerate = false)
     val combat: String,
     val durability: String,
     val intelligence: String,
@@ -24,21 +26,8 @@ data class PowerstatsEntity(
     val strength: String
 )
 
-@Entity
 data class ImageEntity(
-    @PrimaryKey(autoGenerate = false)
     val url: String
 )
 
-@Entity
-data class BiographyEntity(
-    val aliases: List<String>,
-    val alignment: String,
-    val alterEgos: String,
-    val firstAppearance: String,
-    @PrimaryKey(autoGenerate = false)
-    val fullName: String,
-    val placeOfBirth: String,
-    val publisher: String
-)
 

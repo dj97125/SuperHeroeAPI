@@ -27,16 +27,16 @@ class FragmentDetails : BaseFragment() {
         binding.apply {
             if (heroInfo != null) {
                 Picasso.get()
-                    .load(heroInfo.imageResponse.url)
+                    .load(heroInfo.imageResponse?.url)
                     .into(backgroundDetails)
                 detailsOriginalTitle.text = heroInfo.name
 
-                strenghtValue.text = heroInfo.powerstatsResponse.strength
-                intelligenceValue.text = heroInfo.powerstatsResponse.intelligence
-                speedValue.text = heroInfo.powerstatsResponse.speed
-                durabilityValue.text = heroInfo.powerstatsResponse.durability
-                powerValue.text = heroInfo.powerstatsResponse.power
-                combatValue.text = heroInfo.powerstatsResponse.combat
+                strenghtValue.text = heroInfo.powerstatsResponse?.strength
+                intelligenceValue.text = heroInfo.powerstatsResponse?.intelligence
+                speedValue.text = heroInfo.powerstatsResponse?.speed
+                durabilityValue.text = heroInfo.powerstatsResponse?.durability
+                powerValue.text = heroInfo.powerstatsResponse?.power
+                combatValue.text = heroInfo.powerstatsResponse?.combat
             }
             return binding.root
         }

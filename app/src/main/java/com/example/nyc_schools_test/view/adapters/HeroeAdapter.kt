@@ -38,7 +38,7 @@ class HeroeAdapter(
 
     override fun onBindViewHolder(holder: HeroeViewHolder, position: Int) {
         Picasso.get()
-            .load(items[position].imageResponse.url)
+            .load(items[position].imageResponse?.url)
             .into(holder.binding.moviePoster)
         holder.binding.heroeTxt.text = items[position].name
 

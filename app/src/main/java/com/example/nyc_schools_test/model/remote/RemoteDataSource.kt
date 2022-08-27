@@ -1,6 +1,6 @@
 package com.example.nyc_schools_test.model.remote
 
-import com.example.nyc_schools_test.common.FailedResponseException
+import com.example.nyc_schools_test.common.FailedNetworkResponseException
 import com.example.nyc_schools_test.common.NullResponseException
 import com.example.nyc_schools_test.common.StateAction
 import com.example.nyc_schools_test.model.remote.response.HeroeResponse
@@ -24,17 +24,17 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override fun heroeCatched(): Flow<StateAction> = flow {
         var heroes: MutableList<HeroeResponse> = mutableListOf()
-        for (i in 1..700) {
+        for (i in 1..50) {
             val respose = service.getHeroeList(i.toString())
             if (respose.isSuccessful) {
                 respose.body()?.let { response ->
                     heroes.add(response)
-                }?: throw NullResponseException()
+                } ?: throw NullResponseException()
             } else {
-                throw FailedResponseException()
+                throw FailedNetworkResponseException()
             }
         }
-        emit(StateAction.SUCCESS(heroes.toDomainHeroeModel()))
+        emit(StateAction.SUCCESS(heroes.toDomainHeroeModel(),"Data From Network..."))
     }
 
 }
@@ -55,9 +55,9 @@ private fun PowerstatsResponse.toDomainPowerStatsModel(): PowerstatsDomain =
 private fun HeroeResponse.toDomainHeroeModel(): HeroeDomain =
     HeroeDomain(
         id,
-        imageResponse = imageResponse.toDomainImageModel(),
+        imageResponse = imageResponse?.toDomainImageModel(),
         name,
-        powerstatsResponse = powerstatsResponse.toDomainPowerStatsModel(),
+        powerstatsResponse = powerstatsResponse?.toDomainPowerStatsModel(),
         response,
     )
 

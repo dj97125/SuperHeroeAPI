@@ -1,7 +1,6 @@
 package com.example.nyc_schools_test.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.nyc_schools_test.common.FailedResponseException
 import com.example.nyc_schools_test.common.StateAction
 import com.example.nyc_schools_test.domain.HeroeUseCase
 import com.example.nyc_schools_test.model.remote.responses.HeroeDomain
@@ -29,6 +28,10 @@ class ViewModel @Inject constructor(
     val heroeResponse: StateFlow<StateAction?>
         get() = _heroeResponse.asStateFlow()
 
+    private val _conectionResponse: MutableStateFlow<StateAction?> = MutableStateFlow(null)
+    val conectionResponse: StateFlow<StateAction?>
+        get() = _conectionResponse.asStateFlow()
+
 
     var heroe: HeroeDomain? = null
 
@@ -45,11 +48,13 @@ class ViewModel @Inject constructor(
                         when (stateAction) {
                             is StateAction.SUCCESS<*> -> {
                                 val retrievedHeroes = stateAction.response as List<HeroeDomain>
-                                _heroeResponse.value = StateAction.SUCCESS(retrievedHeroes)
+                                val retrievedMessage = stateAction.message
+                                _heroeResponse.value = StateAction.SUCCESS(retrievedHeroes,retrievedMessage)
                                 _isLoading.value = false
                             }
                             is StateAction.ERROR -> {
-                                _heroeResponse.value = StateAction.ERROR(FailedResponseException())
+                                val retrievedFailure = stateAction.error
+                                _heroeResponse.value = StateAction.ERROR(retrievedFailure)
                                 _isLoading.value = true
                             }
                         }

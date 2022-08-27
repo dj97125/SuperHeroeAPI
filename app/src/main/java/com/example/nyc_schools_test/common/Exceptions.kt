@@ -5,6 +5,10 @@ class NullResponseException(
     message: String = "Response is null"
 ) : Exception(message)
 
-class FailedResponseException(
-    message: String = "Error: failure in the response"
+class FailedNetworkResponseException(
+    message: String = "Error: failure in the network response"
+) : Exception(message)
+
+class FailedCacheResponseException(
+    message: String = "Error: failure in the cache response"
 ) : Exception(message)

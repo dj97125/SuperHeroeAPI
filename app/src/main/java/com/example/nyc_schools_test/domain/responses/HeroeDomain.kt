@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName
 data class HeroeDomain(
     val id: String,
     @SerializedName("image")
-    val imageResponse: ImageDomain,
+    val imageResponse: ImageDomain?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("powerstats")
-    val powerstatsResponse: PowerstatsDomain,
+    val powerstatsResponse: PowerstatsDomain?,
     @SerializedName("response")
     val response: String,
 )
@@ -35,4 +35,6 @@ data class ImageDomain(
     @SerializedName("url")
     val url: String
 )
+
+
 

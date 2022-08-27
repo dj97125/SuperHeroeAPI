@@ -8,11 +8,11 @@ data class HeroeResponse(
     @SerializedName("id")
     val id: String,
     @SerializedName("image")
-    val imageResponse: ImageResponse,
+    val imageResponse: ImageResponse?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("powerstats")
-    val powerstatsResponse: PowerstatsResponse,
+    val powerstatsResponse: PowerstatsResponse?,
     @SerializedName("response")
     val response: String,
 )

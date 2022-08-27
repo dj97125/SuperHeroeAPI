@@ -1,6 +1,7 @@
 package com.example.nyc_schools_test.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class FragmentList : BaseFragment(), OnHeroeClicked {
                 viewModel.heroeResponse.collect { state ->
                     when (state) {
                         is StateAction.SUCCESS<*> -> {
+                            showToastMessage(state.message)
                             val retrievedHeroe = state.response as List<HeroeDomain>
                             binding.apply {
                                 heroeAdapter.erraseData()
@@ -66,6 +68,7 @@ class FragmentList : BaseFragment(), OnHeroeClicked {
                 }
             }
         }
+
 
 
         return binding.root

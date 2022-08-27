@@ -1,13 +1,20 @@
 package com.example.nyc_schools_test.di
 
+import android.content.Context
 import android.util.Log
+import androidx.room.Room
 import com.example.nyc_schools_test.common.BASE_URL
+import com.example.nyc_schools_test.common.DATABASE_NAME
+import com.example.nyc_schools_test.model.local.HeroesDB
+import com.example.nyc_schools_test.model.local.LocalDataSource
+import com.example.nyc_schools_test.model.local.LocalDataSourceImpl
 import com.example.nyc_schools_test.model.remote.*
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -35,11 +42,11 @@ interface ServiceModule {
         remoteDataSourceImpl: RemoteDataSourceImpl
     ): RemoteDataSource
 
-//    @ViewModelScoped
-//    @Binds
-//    fun bindLocalDataSource(
-//        localDataSourceImpl: LocalDataSourceImpl
-//    ): LocalDataSource
+    @ViewModelScoped
+    @Binds
+    fun bindLocalDataSource(
+        localDataSourceImpl: LocalDataSourceImpl
+    ): LocalDataSource
 
     companion object {
 
@@ -62,18 +69,18 @@ interface ServiceModule {
             CoroutineScope(dispatcher)
 
 
-//        @Provides
-//        @ProductionDB
-//        fun provideRoom(@ApplicationContext context: Context): HeroesDB =
-//            Room.databaseBuilder(
-//                context,
-//                HeroesDB::class.java, DATABASE_NAME
-//            ).fallbackToDestructiveMigration().build()
+        @Provides
+        @ProductionDB
+        fun provideRoom(@ApplicationContext context: Context): HeroesDB =
+            Room.databaseBuilder(
+                context,
+                HeroesDB::class.java, DATABASE_NAME
+            ).fallbackToDestructiveMigration().build()
 
 
-//        @Provides
-//        fun provideDao(@ProductionDB dataBase: HeroesDB.Companion, context: Context) =
-//            dataBase.getInstance(context).heroesDao()
+        @Provides
+        fun provideDao(@ProductionDB dataBase: HeroesDB) =
+            dataBase.heroesDao()
 
         @Provides
         fun provideService(): RemoteApi =
