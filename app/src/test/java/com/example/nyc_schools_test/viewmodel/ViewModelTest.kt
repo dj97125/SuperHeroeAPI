@@ -1,10 +1,11 @@
 package com.example.nyc_schools_test.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.nyc_schools_test.common.FailedResponseException
+import com.example.nyc_schools_test.common.FailedNetworkResponseException
 import com.example.nyc_schools_test.common.StateAction
 import com.example.nyc_schools_test.domain.HeroeUseCase
 import com.example.nyc_schools_test.model.remote.responses.HeroeDomain
+import com.google.common.truth.Truth
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -14,7 +15,6 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -28,9 +28,9 @@ class ViewModelTest {
 
     @get:Rule
     var rule = InstantTaskExecutorRule()
-    lateinit var handler: CoroutineExceptionHandler
     lateinit var subject: ViewModel
     lateinit var heroeUseCase: HeroeUseCase
+    private val handler = CoroutineExceptionHandler { coroutineContext, throwable -> }
     private val testDispatcher = UnconfinedTestDispatcher()
     private val testScopeCoroutine = TestScope(testDispatcher)
 
@@ -45,59 +45,59 @@ class ViewModelTest {
     }
 
     @Test
-    fun `test everything works`() = runTest(testDispatcher) {
+    fun `test everything works`() {
         testDispatcher.scheduler.advanceTimeBy(2000L)
         assertTrue(true)
     }
 
     @Test
-    fun `get HEROEDOMAIN list when fetching data from server returns ERROR response`() =
-        runTest(testDispatcher) {
-            /**
-             * Given
-             */
-            coEvery {
-                heroeUseCase.invoke()
-            } returns flowOf(
-                StateAction.ERROR(FailedResponseException())
-            )
-
-            /**
-             * When
-             */
-    var StateActionTestList = mutableListOf<StateAction?>()
-
-    val job = launch(handler) {
-        supervisorScope {
-            launch {
-                subject.heroeResponse.collect() {
-                    subject.heroeResponse.toList(StateActionTestList)
-                }
-            }
-        }
+    fun `get HEROEDOMAIN list when fetching data from server returns ERROR response`() {
         /**
-         * Then
+         * Given
          */
-        val successTest = StateAction.ERROR(FailedResponseException())
-        assertEquals(StateActionTestList.get(0), successTest)
-    }
-
-    job.cancel()
-
-}
-
-@Test
-fun `get HEROEDOMAIN list when fetching data from server returns SUCCESS response`() =
-    /**
-     * Given
-     */
-    runTest(testDispatcher) {
-        val listHeroe = listOf(mockk<HeroeDomain>(relaxed = true))
-
         coEvery {
             heroeUseCase.invoke()
         } returns flowOf(
-            StateAction.SUCCESS(listHeroe)
+            StateAction.ERROR(FailedNetworkResponseException())
+        )
+
+        /**
+         * When
+         */
+        var StateActionTestList = mutableListOf<StateAction?>()
+
+        val job = testScopeCoroutine.launch(handler) {
+            supervisorScope {
+                launch {
+                    subject.heroeResponse.collect() {
+                        subject.heroeResponse.toList(StateActionTestList)
+                    }
+                }
+            }
+            /**
+             * Then
+             */
+            val successTest = StateAction.ERROR(FailedNetworkResponseException())
+            assertEquals(StateActionTestList.get(0), successTest)
+            Truth.assertThat(successTest.error.message)
+                .isEqualTo("Error: failure in the network response")
+        }
+
+        job.cancel()
+
+    }
+
+    @Test
+    fun `get HEROEDOMAIN list when fetching data from server returns SUCCESS response`() {
+        /**
+         * Given
+         */
+        val listHeroe = listOf(mockk<HeroeDomain>(relaxed = true))
+        val message = "Data From Network"
+        coEvery {
+            heroeUseCase.invoke()
+        } returns flowOf(
+            StateAction.SUCCESS(listHeroe, message)
         )
         subject.getHeroeList()
 
@@ -107,7 +107,7 @@ fun `get HEROEDOMAIN list when fetching data from server returns SUCCESS respons
         var StateActionTestList = mutableListOf<StateAction?>()
 
 
-        val job = launch(handler) {
+        val job = testScopeCoroutine.launch(handler) {
             supervisorScope {
                 launch {
                     subject.heroeResponse.collect {
@@ -122,16 +122,17 @@ fun `get HEROEDOMAIN list when fetching data from server returns SUCCESS respons
             val successTest =
                 StateActionTestList.get(0) as StateAction.SUCCESS<List<HeroeDomain>>
             assertEquals(StateActionTestList.get(0), successTest)
+            Truth.assertThat(successTest.message).isEqualTo("Data From Network")
         }
         job.cancel()
 
     }
 
 
-@After
-fun shutdownTest() {
-    clearAllMocks()
-    Dispatchers.resetMain()
-}
+    @After
+    fun shutdownTest() {
+        clearAllMocks()
+        Dispatchers.resetMain()
+    }
 
 }
